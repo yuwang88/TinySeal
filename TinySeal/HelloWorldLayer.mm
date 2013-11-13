@@ -23,10 +23,12 @@ enum {
 
 #pragma mark - HelloWorldLayer
 
-@interface HelloWorldLayer()
--(void) initPhysics;
--(void) addNewSpriteAtPosition:(CGPoint)p;
--(void) createMenu;
+@interface HelloWorldLayer(){
+    CCSprite *_background;
+}
+//-(void) initPhysics;
+//-(void) addNewSpriteAtPosition:(CGPoint)p;
+//-(void) createMenu;
 @end
 
 @implementation HelloWorldLayer
@@ -45,13 +47,20 @@ enum {
 	// return the scene
 	return scene;
 }
-
+-(CCSprite *)spriteWithColor:(ccColor4F)bgColor textureWidth:(float)textureWidth textureHeight:(float)textureHeight{
+    CCRenderTexture *rt = [CCRenderTexture renderTextureWithWidth:textureWidth height:textureHeight];
+    [rt beginWithClear:bgColor.r g:bgColor.g b:bgColor.b a:bgColor.a];
+    [rt end];
+    return [CCSprite spriteWithFile: rt.sprite.texture];
+}
 -(id) init
 {
 	if( (self=[super init])) {
-		
+    }
+    return self;
+}
 		// enable events
-		
+	/*
 		self.touchEnabled = YES;
 		self.accelerometerEnabled = YES;
 		CGSize s = [CCDirector sharedDirector].winSize;
@@ -303,5 +312,5 @@ enum {
 	AppController *app = (AppController*) [[UIApplication sharedApplication] delegate];
 	[[app navController] dismissModalViewControllerAnimated:YES];
 }
-
+*/
 @end
